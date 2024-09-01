@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240827094918"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "donationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactDetails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "donationType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateAndTime",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "Donation",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}

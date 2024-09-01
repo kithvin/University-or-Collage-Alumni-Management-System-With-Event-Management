@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20240827094920"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "authorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publishDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "coverArea",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "group",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "expireDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "News",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}

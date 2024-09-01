@@ -1,0 +1,75 @@
+
+entity Event {
+	eventName String
+    dateAndTime Instant
+    location String
+    eventType String
+    description String
+    targetAudience String
+    eventCoordinator String
+}
+
+entity Donation {
+	donationName String
+    contactDetails String
+    billingAddress String
+    amount Instant
+    description String
+    donationType String
+    dateAndTime Instant
+}
+
+entity Job {
+	jobName String
+    companyName String
+    location String
+    salaryDetails Instant
+    jobDescription String
+    expireDate Instant
+    jobApplyMethod String
+}
+
+entity News {
+	authorName String
+    title String
+    publishDate Instant
+    coverArea Instant
+    group String
+    expireDate Instant
+
+}
+
+entity VolunteerOP {
+	volunteerName String
+    dateAndTime Instant
+    location String
+    timeDuration Instant
+    description String
+    member String
+    volunteerOpCoordinator String
+}
+
+
+enum Eventtype {
+    GETTOGETHER, FAIRWELL, CHARITY
+}
+
+enum Jobapplymethod {
+    EMAIL, PHONECALLS, DIRECTCONTACT
+}
+
+enum Donationtype {
+    ONLINE,MATERIAL,CASH,CHECK
+}
+
+enum Reportcategory {
+    USERDETAILS,DONATIONDETAILS,EVENTDETAILS,JOBBOARDDETAILS,NEWSDETAILS,VOLUNTEEROPPRTUNITIESDETAILS
+}
+
+// Set pagination options
+paginate Event,Donation,Job,News,VolunteerOP with infinite-scroll
+paginate Event,Donation,Job,News,VolunteerOP with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+

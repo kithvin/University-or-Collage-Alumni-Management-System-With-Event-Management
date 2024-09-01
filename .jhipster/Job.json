@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240827094919"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "jobName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salaryDetails",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "jobDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "expireDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "jobApplyMethod",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Job",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}
