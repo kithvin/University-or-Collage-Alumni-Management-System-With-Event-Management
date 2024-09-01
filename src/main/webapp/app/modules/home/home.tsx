@@ -1,87 +1,119 @@
 import './home.scss';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import { Row, Col, Alert } from 'reactstrap';
-
 import { useAppSelector } from 'app/config/store';
+import { motion, useAnimation } from 'framer-motion';
+import axios from 'axios';
+import { useInView } from 'react-intersection-observer';
+import { About } from '../about/about';
+import { Contact } from '../contact/contact';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
+  const form = useRef();
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
+  const [viewDiv, setViewDiv] = useState(false);
+  const animation = useAnimation();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/email/sendEmail', formData);
+      console.log(response.data);
+      // Reset form after successful submission
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (inView) {
+      setViewDiv(true);
+    } else {
+      setViewDiv(false);
+    }
+  }, [inView, animation]);
+
+  const contactAnimation = {
+    hidden: {
+      y: -200,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.75,
+        duration: 0.5,
+      },
+    },
+  };
+
+  const headingAnimation = {
+    hidden: {
+      y: -200,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1, type: 'spring' },
+    },
+  };
 
   return (
-    <Row>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
-      </Col>
-      <Col md="9">
-        <h1 className="display-4">Welcome, Java Hipster!</h1>
-        <p className="lead">This is your homepage</p>
-        {account?.login ? (
-          <div>
-            <Alert color="success">You are logged in as user &quot;{account.login}&quot;.</Alert>
+    <div className="container">
+      <div className="row align-items-center" style={{ paddingTop: '130px', paddingBottom: '110px' }}>
+        <motion.div initial={{ y: 100 }} animate={{ y: 0 }} transition={{ duration: 1 }} className="col-12 col-lg-8 py-5">
+          <h1 className="header-text-color font-bold text-4xl py-2 text-left">
+            Welcome to Alumni Management
+            <br />
+            Your Pathway to Personalized Learning
+          </h1>
+          <p className="text-left font-[450] text-gray-400 sm:text-left dark:text-white my-2">
+            Empowering every alumni to collaborate together.
+          </p>
+
+          <div className="d-flex flex-column flex-sm-row justify-sm-start">
+            <Link to={'/login'} className="flex">
+              <button className="btn-primary text-white mb-sm-0 me-sm-3 mr3-l mt-3">
+                <span>Login</span>
+              </button>
+            </Link>
+
+            <Link to={'/account/register'} className="flex">
+              <button className="btn-primary text-white mb-sm-0 me-sm-3 mr3-l mt-3">
+                <span>Register</span>
+              </button>
+            </Link>
           </div>
-        ) : (
-          <div>
-            <Alert color="warning">
-              If you want to
-              <span>&nbsp;</span>
-              <Link to="/login" className="alert-link">
-                sign in
-              </Link>
-              , you can try the default accounts:
-              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User (login=&quot;user&quot; and
-              password=&quot;user&quot;).
-            </Alert>
-
-            <Alert color="warning">
-              You don&apos;t have an account yet?&nbsp;
-              <Link to="/account/register" className="alert-link">
-                Register a new account
-              </Link>
-            </Alert>
+        </motion.div>
+        <motion.div className="col-12 col-lg-4" initial={{ x: -100 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
+          <div className="order-lg-3 pt-4 pt-lg-0">
+            <img src="../../../content/images/alu2.jpg" title="Banner AlumniManagement" alt="Banner AlumniManagement" className="w-100" />
           </div>
-        )}
-        <p>If you have any question on JHipster:</p>
+        </motion.div>
+      </div>
 
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              JHipster homepage
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              JHipster on Stack Overflow
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              JHipster bug tracker
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              JHipster public chat room
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              follow @jhipster on Twitter
-            </a>
-          </li>
-        </ul>
+      {/*About*/}
+      <About />
 
-        <p>
-          If you like JHipster, don&apos;t forget to give us a star on{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
-        </p>
-      </Col>
-    </Row>
+      {/*Contact*/}
+      <Contact />
+    </div>
   );
 };
 
