@@ -6,8 +6,7 @@ import { useAppSelector } from 'app/config/store';
 import { motion, useAnimation } from 'framer-motion';
 import axios from 'axios';
 import { useInView } from 'react-intersection-observer';
-import { About } from '../about/about';
-import { Contact } from '../contact/contact';
+import { FaCalendarAlt, FaBars, FaTimes, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -75,44 +74,95 @@ export const Home = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row align-items-center" style={{ paddingTop: '130px', paddingBottom: '110px' }}>
-        <motion.div initial={{ y: 100 }} animate={{ y: 0 }} transition={{ duration: 1 }} className="col-12 col-lg-8 py-5">
-          <h1 className="header-text-color font-bold text-4xl py-2 text-left">
-            Welcome to Alumni Management
-            <br />
-            Your Pathway to Personalized Learning
-          </h1>
-          <p className="text-left font-[450] text-gray-400 sm:text-left dark:text-white my-2">
-            Empowering every alumni to collaborate together.
+    <div className="font-sans bg-gray-50 min-h-screen">
+      <main className="container mx-auto p-8">
+        {/* Main Content */}
+        <section className="text-center my-16">
+          <div className="bg-gradient-to-r from-blue-500 to-green-500 p-12 rounded-lg shadow-lg">
+            <h1 className="text-5xl font-extrabold text-white mb-4 animate__animated animate__fadeIn">
+              Welcome to Alumni Management with Event Management
+            </h1>
+            <p className="text-2xl text-white mb-6 animate__animated animate__fadeIn animate__delay-1s">
+              Your Pathway to Personalized Alumni Get Together
+            </p>
+            <p className="text-lg text-white mb-8 animate__animated animate__fadeIn animate__delay-2s">
+              Empowering every alumni to collaborate together.
+            </p>
+            <div className="flex justify-center space-x-4">
+              {/* <Link
+                    to="/login"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300"
+                  >
+                    Register
+                  </Link> */}
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section className="my-16 bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold mb-4 text-gray-800">About Us</h2>
+          <p className="text-xl text-gray-700 text-justify">
+            Welcome to Alumni Management With Event Management where we seamlessly integrate alumni management with dynamic event management
+            to foster lifelong connections and engagement. Our platform is designed to enhance the alumni experience by offering a
+            comprehensive suite of tools for tracking leadership roles, managing events, and facilitating meaningful interactions. Whether
+            you're an administrator aiming to streamline alumni relations or a member seeking to stay connected, our system provides an
+            intuitive interface and robust features to meet your needs. With a focus on user-friendly design and effective management,
+            Alumni Management With Event Management is dedicated to supporting the growth and success of your alumni network through
+            innovative solutions and exceptional service.
           </p>
+        </section>
 
-          <div className="d-flex flex-column flex-sm-row justify-sm-start">
-            <Link to={'/login'} className="flex">
-              <button className="btn-primary text-white mb-sm-0 me-sm-3 mr3-l mt-3">
-                <span>Login</span>
-              </button>
-            </Link>
+        {/* About Alumni Management With Event Management Section */}
+        <section className="my-16 bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold mb-4 text-gray-800">About Alumni Management With Event Management</h2>
+          <p className="text-lg text-gray-700 text-justify">
+            At Alumni Management with Event Management, we provide an integrated solution designed to bring together the best of alumni
+            engagement and event coordination. Our platform simplifies the complexities of managing alumni networks while offering powerful
+            tools for organizing and executing events. With our system, you can effortlessly track alumni achievements, coordinate impactful
+            events, and foster meaningful connections within your community. Our user-centric approach ensures that both administrators and
+            alumni have access to a seamless, intuitive experience. By combining advanced technology with a commitment to excellence, we
+            empower organizations to enhance their alumni relations and drive successful events that strengthen their network.
+          </p>
+        </section>
 
-            <Link to={'/account/register'} className="flex">
-              <button className="btn-primary text-white mb-sm-0 me-sm-3 mr3-l mt-3">
-                <span>Register</span>
-              </button>
-            </Link>
+        {/* Contact Section */}
+        <section className="my-16 bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold mb-4 text-gray-800">Contact</h2>
+          <div className="text-lg text-gray-700 mb-4">
+            <div className="flex items-center mb-2">
+              <FaUser className="text-gray-500 mr-2" />
+              <p>
+                <strong>Name:</strong> Mr. Director
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaEnvelope className="text-gray-500 mr-2" />
+              <p>
+                <strong>Email:</strong> info@alumnimanagementwitheventmanagement.com
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaPhone className="text-gray-500 mr-2" />
+              <p>
+                <strong>Phone:</strong> +94 76 963 1234
+              </p>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaMapMarkerAlt className="text-gray-500 mr-2" />
+              <p>
+                <strong>Address:</strong> Godakawela, Sri Lanka
+              </p>
+            </div>
           </div>
-        </motion.div>
-        <motion.div className="col-12 col-lg-4" initial={{ x: -100 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
-          <div className="order-lg-3 pt-4 pt-lg-0">
-            <img src="../../../content/images/alu2.jpg" title="Banner AlumniManagement" alt="Banner AlumniManagement" className="w-100" />
-          </div>
-        </motion.div>
-      </div>
-
-      {/*About*/}
-      <About />
-
-      {/*Contact*/}
-      <Contact />
+        </section>
+      </main>
     </div>
   );
 };

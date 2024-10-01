@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { type FieldError, useForm } from 'react-hook-form';
 // import ChangeThemes from '../components/ChangeThemes';
 // import { DiReact } from 'react-icons/di';
+import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa'; // Added FaUser for username icon
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginModalProps {
   showModal: boolean;
@@ -28,6 +30,12 @@ const LoginModal = (props: ILoginModalProps) => {
 
   const handleLoginSubmit = e => {
     handleSubmit(login)(e);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLoginRedirect = () => {
+    navigate('/register');
   };
 
   return (
@@ -107,68 +115,86 @@ const LoginModal = (props: ILoginModalProps) => {
           <h1 className="text-5xl font-bold text-center text-black">Alumni Management with Event Management</h1>
         </div>
 
-        <div className="relative w-full h-auto xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%] bg-base-100 rounded-lg shadow-md flex flex-col items-center p-5 pb-7 gap-8 pt-20 xl:pt-7">
-          {/* Theme Toggle */}
-          <div className="absolute top-5 right-5 z-[99]"></div>
-
+        {/* Login Form */}
+        <form
+          onSubmit={handleLoginSubmit}
+          className="relative w-full h-auto xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%] bg-base-100 rounded-lg shadow-md flex flex-col items-center p-5 pb-7 gap-8 pt-20 xl:pt-7 bg-white"
+        >
           {/* Logo and Title */}
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-semibold text-base-content dark:text-neutral-200">Alumni Management Login</span>
+            <span className="text-3xl font-bold text-black p-2 rounded-md">Alumni Management Login</span>
           </div>
 
           {/* Welcome Message */}
           <span className="mb-4 text-xl font-semibold">Hello, 👋 Welcome AMSEM!</span>
 
-          {/* Registration Form */}
-          <div className="flex flex-col items-stretch w-full gap-3">
-            <label className="flex items-center min-w-full gap-2 input input-bordered">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70">
-                <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-              </svg>
-              <input
-                type="text"
-                className="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-                placeholder="Email"
-              />
-            </label>
-            <label className="flex items-center gap-2 input input-bordered">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70">
-                <path
-                  fillRule="evenodd"
-                  d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <input
-                type="password"
-                className="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-                placeholder="Password"
-              />
-            </label>
+          {/* Login Form Inputs */}
+          <div className="flex flex-col items-stretch w-full gap-3 bg">
+            <Col md="12">
+              {loginError ? (
+                <Alert color="danger" data-cy="loginError">
+                  <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                </Alert>
+              ) : null}
+            </Col>
+
+            <ValidatedField
+              name="username"
+              label="Username"
+              placeholder="Your username"
+              required
+              autoFocus
+              data-cy="username"
+              validate={{ required: 'Username cannot be empty!' }}
+              register={register}
+              error={errors.username as FieldError}
+              isTouched={touchedFields.username}
+            />
+            <ValidatedField
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Your password"
+              required
+              data-cy="password"
+              validate={{ required: 'Password cannot be empty!' }}
+              register={register}
+              error={errors.password as FieldError}
+              isTouched={touchedFields.password}
+            />
+
+            {/* Remember Me Checkbox */}
             <div className="flex items-center justify-center mt-4">
               <div className="flex items-center gap-2 form-control">
                 <label className="flex items-center gap-2 cursor-pointer label">
-                  <input type="checkbox" defaultChecked className="w-4 h-4 rounded-md checkbox checkbox-primary" />
+                  <input type="checkbox" className="w-4 h-4 rounded-md checkbox checkbox-primary" />
                   <span className="text-xs label-text">Remember me</span>
                 </label>
               </div>
             </div>
-            <div className="mt-4 btn btn-block btn-primary">Login</div>
+
+            {/* Login Button */}
+            <button
+              type="submit"
+              className="mt-4 btn btn-block btn-primary bg-indigo-600 text-white font-semibold py-3 rounded-md shadow-md hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Login
+            </button>
+
+            {/* Redirect to Registration */}
             <div className="flex justify-center mt-4 text-blue-700 text-md">
               Don't you have an account?{' '}
               <span className="ml-2">
-                <Link to="/account/register">Register a new account</Link>
-                <a
-                  //                   onClick={handleLoginRedirect}
+                <Link
+                  to="/account/register"
                   className="flex justify-center text-purple-600 cursor-pointer hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-100 hover:underline"
                 >
-                  Register Here !
-                </a>
+                  Register a new account
+                </Link>
               </span>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

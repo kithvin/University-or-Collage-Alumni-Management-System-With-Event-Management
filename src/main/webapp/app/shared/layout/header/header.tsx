@@ -1,4 +1,6 @@
 import './header.scss';
+import { Link } from 'react-router-dom';
+import { FaCalendarAlt, FaBars, FaTimes, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 import React, { useState } from 'react';
 
@@ -23,154 +25,171 @@ const Header = (props: IHeaderProps) => {
 
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
-  return (
-    <div id="app-header">
-      <LoadingBar className="loading-bar" />
-      <Navbar data-cy="navbar" dark expand="md" fixed="top" className="jh-navbar">
-        <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
-        <Brand />
-        <Collapse isOpen={menuOpen} navbar>
-          <Nav id="header-tabs" className="ms-auto" navbar>
-            <Home />
-            {props.isAuthenticated && <EntitiesMenu />}
-            {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
-            <AccountMenu isAuthenticated={props.isAuthenticated} />
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    // navbar screen
-    //     <div className="fixed z-[3] top-0 left-0 right-0 bg-base-100 w-full flex justify-between px-3 xl:px-4 py-3 xl:py-5 gap-4 xl:gap-0">
-    //       {/* container */}
-    //       <div className="flex gap-3 items-center">
-    //         {/* for mobile */}
-    //         <div className="drawer w-auto p-0 mr-1 xl:hidden">
-    //           <input
-    //             id="drawer-navbar-mobile"
-    //             type="checkbox"
-    //             className="drawer-toggle"
-    //             checked={isDrawerOpen}
-    //             onChange={toggleDrawer}
-    //           />
-    //           <div className="p-0 w-auto drawer-content">
-    //             <label
-    //               htmlFor="drawer-navbar-mobile"
-    //               className="p-0 btn btn-ghost drawer-button"
-    //             >
-    //               <HiBars3CenterLeft className="text-2xl" />
-    //             </label>
-    //           </div>
-    //           <div className="drawer-side z-[99]">
-    //             <label
-    //               htmlFor="drawer-navbar-mobile"
-    //               aria-label="close sidebar"
-    //               className="drawer-overlay"
-    //             ></label>
-    //             <div className="menu p-4 w-auto min-h-full bg-base-200 text-base-content">
-    //               <Link
-    //                 to={'/'}
-    //                 className="flex items-center gap-1 xl:gap-2 mt-1 mb-5"
-    //               >
-    //                 <DiReact className="text-3xl sm:text-4xl xl:text-4xl 2xl:text-6xl text-primary animate-spin-slow" />
-    //                 <span className="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
-    //                   React Dashboard
-    //                 </span>
-    //               </Link>
-    //               {menu.map((item, index) => (
-    //                 <MenuItem
-    //                   onClick={toggleDrawer}
-    //                   key={index}
-    //                   catalog={item.catalog}
-    //                   listItems={item.listItems}
-    //                 />
-    //               ))}
-    //             </div>
-    //           </div>
+  // Toggle sidebar visibility
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  return (
+    <div className="container">
+      {' '}
+      {/* Add container class here */}
+      <div id="app-header">
+        <LoadingBar className="loading-bar" />
+        <Navbar data-cy="navbar" dark expand="md" fixed="top" className="!bg-gray-900">
+          <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
+          <Brand />
+          <Collapse isOpen={menuOpen} navbar>
+            <Nav id="header-tabs" className="ms-auto" navbar style={{ fontSize: '18px' }}>
+              {!props.isAuthenticated && <Home />}
+
+              {props.isAuthenticated && <EntitiesMenu />}
+              {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+              <AccountMenu isAuthenticated={props.isAuthenticated} />
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    </div>
+    //
+    // //     <div id="app-header">
+    // //       <LoadingBar className="loading-bar" />
+    // //       <Navbar data-cy="navbar" dark expand="md" fixed="top" className="jh-navbar">
+    // //         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
+    // //         <Brand />
+    // //         <Collapse isOpen={menuOpen} navbar>
+    // //           <Nav id="header-tabs" className="ms-auto" navbar>
+    // //             <Home />
+    // //             {props.isAuthenticated && <EntitiesMenu />}
+    // //             {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+    // //             <AccountMenu isAuthenticated={props.isAuthenticated} />
+    // //           </Nav>
+    // //         </Collapse>
+    // //       </Navbar>
+    //
+    // <div id="app-header">
+    // <Navbar data-cy="navbar" dark expand="md" fixed="top" className="jh-navbar !bg-gray-900 !p-6">
+    //       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+    //         {/* Sidebar Toggle Icon */}
+    //         <div className="text-white cursor-pointer" onClick={toggleSidebar}>
+    //           <FaBars className="text-2xl" />
     //         </div>
     //
-    //         {/* navbar logo */}
-    //         <Link to={'/'} className="flex items-center gap-1 xl:gap-2">
-    //           <DiReact className="text-3xl sm:text-4xl xl:text-4xl 2xl:text-6xl text-primary animate-spin-slow" />
-    //           <span className="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
-    //             React Dashboard
-    //           </span>
-    //         </Link>
+    //         {/* Centered Text and Icon */}
+    //         <div className="relative flex h-16 items-center justify-between">
+    //           <FaCalendarAlt className="text-white text-2xl mr-4" />
+    //           <div className="text-white text-xl">
+    //             Alumni Management with Event Management
+    //           </div>
+    //            <div className="text-white text-xl ms-auto">
+    //               <Home />
+    //           </div>
+    //            <div className="text-white text-xl ms-auto">
+    //               {props.isAuthenticated && <EntitiesMenu />}
+    //            </div>
+    //             <div className="text-white text-xl ms-auto">
+    //               {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+    //             </div>
+    //             <div className="text-white text-xl ms-auto">
+    //                <AccountMenu isAuthenticated={props.isAuthenticated} />
+    //             </div>
+    //
+    //         </div>
     //       </div>
     //
-    //       {/* navbar items to right */}
-    //       <div className="flex items-center gap-0 xl:gap-1 2xl:gap-2 3xl:gap-5">
-    //         {/* search */}
-    //         <button
-    //           onClick={() =>
-    //             toast('Gaboleh cari!', {
-    //               icon: '😠',
-    //             })
-    //           }
-    //           className="hidden sm:inline-flex btn btn-circle btn-ghost"
-    //         >
-    //           <HiSearch className="text-xl 2xl:text-2xl 3xl:text-3xl" />
-    //         </button>
-    //
-    //         {/* fullscreen */}
-    //         <button
-    //           onClick={toggleFullScreen}
-    //           className="hidden xl:inline-flex btn btn-circle btn-ghost"
-    //         >
-    //           {isFullScreen ? (
-    //             <RxEnterFullScreen className="xl:text-xl 2xl:text-2xl 3xl:text-3xl" />
-    //           ) : (
-    //             <RxExitFullScreen className="xl:text-xl 2xl:text-2xl 3xl:text-3xl" />
-    //           )}
-    //         </button>
-    //
-    //         {/* notification */}
-    //         <button
-    //           onClick={() =>
-    //             toast('Gaada notif!', {
-    //               icon: '😠',
-    //             })
-    //           }
-    //           className="px-0 xl:px-auto btn btn-circle btn-ghost"
-    //         >
-    //           <HiOutlineBell className="text-xl 2xl:text-2xl 3xl:text-3xl" />
-    //         </button>
-    //
-    //         {/* theme */}
-    //         <div className="px-0 xl:px-auto btn btn-circle btn-ghost xl:mr-1">
-    //           <ChangeThemes />
-    //         </div>
-    //
-    //         {/* avatar dropdown */}
-    //         <div className="dropdown dropdown-end">
-    //           <div
-    //             tabIndex={0}
-    //             role="button"
-    //             className="btn btn-ghost btn-circle avatar"
-    //           >
-    //             <div className="w-9  rounded-full">
-    //               <img
-    //                 src="https://avatars.githubusercontent.com/u/74099030?v=4"
-    //                 alt="foto-cowok-ganteng"
-    //               />
+    //       {/* Sidebar */}
+    //       {isSidebarOpen && (
+    //         <>
+    //           {/* Sidebar Content */}
+    //           <div className="fixed top-0 left-0 w-64 h-full bg-gray-800 shadow-lg z-50">
+    //             <div className="p-4 text-white">
+    //               <br />
+    //               <div className="flex justify-between items-center">
+    //                 <h2 className="text-xl font-bold">AMSEM</h2>
+    //                 <FaTimes className="text-2xl cursor-pointer" onClick={toggleSidebar} />
+    //               </div>
+    //               <br />
+    //               <ul className="space-y-4 mt-4">
+    //                 {/* Add your existing sidebar links */}
+    //                 {/* Example */}
+    //                 <li>
+    //                   <Link to="/VolunteerOPadmin" className="hover:text-gray-400">
+    //                     Volunteer Opportunity (Admin)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/VolunteerOPuser" className="hover:text-gray-400">
+    //                     Volunteer Opportunity (User)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/AdminNews" className="hover:text-gray-400">
+    //                     News and Updates (Admin)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/UserNews" className="hover:text-gray-400">
+    //                     News and Updates (User)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Adminevent" className="hover:text-gray-400">
+    //                     Event Management (Admin)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Userevent" className="hover:text-gray-400">
+    //                     Event Management (User)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/UpcomingProgramme" className="hover:text-gray-400">
+    //                     Monitor Programme
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Jobadmin" className="hover:text-gray-400">
+    //                     Job Board (Admin)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/JobUser" className="hover:text-gray-400">
+    //                     Job Board (User)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/AlumniReport" className="hover:text-gray-400">
+    //                     Alumni Report
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Donationadmin" className="hover:text-gray-400">
+    //                     Alumni Donation (Admin)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Donationuser" className="hover:text-gray-400">
+    //                     Alumni Donation (User)
+    //                   </Link>
+    //                 </li>
+    //                 <li>
+    //                   <Link to="/Profile" className="hover:text-gray-400">
+    //                     Profile
+    //                   </Link>
+    //                 </li>
+    //               </ul>
     //             </div>
     //           </div>
-    //           <ul
-    //             tabIndex={0}
-    //             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-40"
-    //           >
-    //             <Link to={'/profile'}>
-    //               <li>
-    //                 <a className="justify-between">My Profile</a>
-    //               </li>
-    //             </Link>
-    //             <li onClick={() => navigate('/login')}>
-    //               <a>Log Out</a>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       </div>
-    //     </div>
+    //
+    //           {/* Overlay to close sidebar when clicking outside */}
+    //           <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleSidebar}></div>
+    //         </>
+    //       )}
+    //  </Navbar>
+    //
+    // </div>
   );
 };
 
