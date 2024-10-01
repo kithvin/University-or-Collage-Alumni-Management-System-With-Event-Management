@@ -53,6 +53,7 @@ const Header = (props: IHeaderProps) => {
         </Navbar>
       </div>
     </div>
+
     //
     // //     <div id="app-header">
     // //       <LoadingBar className="loading-bar" />

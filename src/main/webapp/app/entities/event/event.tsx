@@ -91,40 +91,54 @@ export const Event = () => {
   };
 
   return (
-    <div className="container mx-auto mt-5">
-      <h1 className="text-center text-3xl font-bold mb-5 mt-12 text-red-600">List of Event</h1>
-      <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <thead className="bg-purple-50 text-black">
-          <tr>
-            <th className="py-3 px-4">#</th>
-            <th className="py-3 px-4">Event Name</th>
-            <th className="py-3 px-4">Date and Time</th>
-            <th className="py-3 px-4">Location</th>
-            <th className="py-3 px-4">Description</th>
-            <th className="py-3 px-4">Target Audience</th>
-            <th className="py-3 px-4">Event Coordinator</th>
-            <th className="py-3 px-4">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {eventList.map((event, i) => (
-            <tr key={i} className="even:bg-gray-100">
-              <td className="py-3 px-4 text-center">{i + 1}</td>
-              <td className="py-3 px-4 text-center">{event.eventName}</td>
-              <td className="py-3 px-4 text-center">{event.dateAndTime}</td>
-              <td className="py-3 px-4 text-center">{event.location}</td>
-              <td className="py-3 px-4 text-center">{event.description}</td>
-              <td className="py-3 px-4 text-center">{event.targetaudince}</td>
-              <td className="py-3 px-4 text-center">{event.eventcoordinator}</td>
-              <td className="py-3 px-4 text-center space-x-2">
-                {/* Buttons for accepting or rejecting events */}
-                <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 ml-4 mt-2 w-auto">Accepted</button>
-                <button className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 ml-4 mt-2 w-auto">Rejected</button>
-              </td>
+    <div>
+      <h2 id="event-heading" data-cy="EventHeading">
+        Events
+        <div className="d-flex justify-content-end">
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
+          </Button>
+          <Link to="/event/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+            <FontAwesomeIcon icon="plus" />
+            &nbsp; Create a new Event
+          </Link>
+        </div>
+      </h2>
+      <div className="container mx-auto mt-5">
+        <h1 className="text-center text-3xl font-bold mb-5 mt-12 text-red-600">List of Event</h1>
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-purple-50 text-black">
+            <tr>
+              <th className="py-3 px-4">#</th>
+              <th className="py-3 px-4">Event Name</th>
+              <th className="py-3 px-4">Date and Time</th>
+              <th className="py-3 px-4">Location</th>
+              <th className="py-3 px-4">Description</th>
+              <th className="py-3 px-4">Target Audience</th>
+              <th className="py-3 px-4">Event Coordinator</th>
+              <th className="py-3 px-4">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {eventList.map((event, i) => (
+              <tr key={i} className="even:bg-gray-100">
+                <td className="py-3 px-4 text-center">{i + 1}</td>
+                <td className="py-3 px-4 text-center">{event.eventName}</td>
+                <td className="py-3 px-4 text-center">{event.dateAndTime}</td>
+                <td className="py-3 px-4 text-center">{event.location}</td>
+                <td className="py-3 px-4 text-center">{event.description}</td>
+                <td className="py-3 px-4 text-center">{event.targetaudince}</td>
+                <td className="py-3 px-4 text-center">{event.eventcoordinator}</td>
+                <td className="py-3 px-4 text-center space-x-2">
+                  {/* Buttons for accepting or rejecting events */}
+                  <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 ml-4 mt-2 w-auto">Accepted</button>
+                  <button className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 ml-4 mt-2 w-auto">Rejected</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
 
     //     <div>

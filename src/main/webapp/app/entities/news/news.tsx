@@ -8,6 +8,8 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { FaNewspaper } from 'react-icons/fa'; // Make sure you have 'react-icons' installed
+import { AiOutlineEdit, AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 
 import { getEntities } from './news.reducer';
 
